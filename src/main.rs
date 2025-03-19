@@ -62,9 +62,7 @@ fn print_shift_list() {
 
     let shift_list = interval_var_shift_list(&names, start_time, end_time);
 
-    for (name, start, end) in shift_list {
-        println!("{}-{} {}", start, end, name);
-    }
+    print!("{}", shift_list_to_string(&shift_list));
 }
 
 fn main() {
