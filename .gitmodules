@@ -1,0 +1,3 @@
+[submodule "lib/shift_maker"]
+	path = lib/shift_maker
+	url = /home/akiva/Code/projects/shift_app/shift_maker
