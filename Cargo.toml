@@ -5,3 +5,4 @@ edition = "2021"
 
 [dependencies]
 shift_maker = {path = "lib/shift_maker"}
+rand = "0.9.0"

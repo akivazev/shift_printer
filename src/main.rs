@@ -2,6 +2,8 @@ use std::{env, io};
 use shift_maker::*;
 use util::input_time;
 use time::{Time, Duration};
+use rand::seq::SliceRandom;
+use rand::rng;
 
 fn print_fixed_shift_list() {
     let mut input = String::new();
@@ -24,12 +26,33 @@ fn print_fixed_shift_list() {
 
     let shift_length = Duration::from_string(&shift_length_str).expect("Invalid shift length");
 
+    println!("Randomize order? (y/N):");
+
+    let is_random:bool;
+
+    io::stdin().read_line(&mut input)
+        .expect("Input error");
+
+    match input.trim().to_lowercase().as_str() {
+        "" => is_random = false,
+        "n" => is_random = false,
+        "y" => is_random = true,
+        _ => panic!("Invalid input"),
+    }
+
+    input.clear();
+
     println!("Enter names separated by whitespace:");
 
     io::stdin().read_line(&mut input)
         .expect("Input error");
 
-    let names: Vec<&str> = input.split_whitespace().collect();
+    let mut names: Vec<&str> = input.split_whitespace().collect();
+
+    if is_random {
+        let mut rng = rng();
+        names.shuffle(&mut rng);
+    }
 
     let shift_list = interval_fixed_shift_list(&names, shift_length, start_time, end_time);
 
@@ -53,12 +76,33 @@ fn print_shift_list() {
 
     let end_time = Time::from_string(&end_time_str).expect("Invalid end time");
 
+    println!("Randomize order? (y/N):");
+
+    let is_random:bool;
+
+    io::stdin().read_line(&mut input)
+        .expect("Input error");
+
+    match input.trim().to_lowercase().as_str() {
+        "" => is_random = false,
+        "n" => is_random = false,
+        "y" => is_random = true,
+        _ => panic!("Invalid input"),
+    }
+
+    input.clear();
+
     println!("Enter names separated by whitespace:");
 
     io::stdin().read_line(&mut input)
         .expect("Input error");
 
-    let names: Vec<&str> = input.split_whitespace().collect();
+    let mut names: Vec<&str> = input.split_whitespace().collect();
+
+    if is_random {
+        let mut rng = rng();
+        names.shuffle(&mut rng);
+    }
 
     let shift_list = interval_var_shift_list(&names, start_time, end_time);
 
